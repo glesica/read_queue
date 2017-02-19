@@ -1,0 +1,34 @@
+$black: grey;
+$light-black: lightgrey;
+
+body {
+  background-color: whitesmoke;
+  color: $black;
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+  font-size: 1.0rem;
+  margin: 0;
+  min-height: 150px;
+  min-width: 200px;
+  padding: 0;
+}
+
+#queue-controls {
+  .button {
+    align-items: center;
+    color: whitesmoke;
+    cursor: pointer;
+    display: flex;
+    font-weight: bold;
+    height: 75px;
+    justify-content: center;
+    width: 200px;
+  }
+
+  .dequeue-button {
+    background: orange;
+  }
+
+  .enqueue-button {
+    background: dodgerblue;
+  }
+}

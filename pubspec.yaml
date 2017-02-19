@@ -1,0 +1,33 @@
+name: read_queue
+description: A Chrome plugin to help stay on top of reading.
+version: 1.0.0
+author: George Lesica <george@lesica.com>
+homepage: https://github.com/glesica/read_queue
+
+environment:
+  sdk: '>=1.22.0 <2.0.0'
+
+dependencies:
+  chrome: ^0.9.2
+  dart_sass_transformer: ^0.5.0
+  dart_to_js_script_rewriter: ^1.0.0
+  react: ^3.0.0
+  w_flux: ^2.6.0
+  over_react: ^1.4.0
+  w_common: ^1.2.0
+
+dev_dependencies:
+  browser: any
+  dart_dev: ^1.6.0
+  dart_style: any
+  test: '>=0.12.0 <0.13.0'
+
+transformers:
+  - chrome
+  - dart_sass_transformer
+  - dart_to_js_script_rewriter
+  - over_react
+  - $dart2js:
+      minify: true
+      csp: true
+
