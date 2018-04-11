@@ -3,7 +3,7 @@
 
   "name": "Read Queue",
   "description": "Never lose track of something you wanted to read!",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "George Lesica",
 
   "browser_action": {
