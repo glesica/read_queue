@@ -24,6 +24,8 @@ class QueueControlsComponent extends FluxUiComponent<QueueControlsProps> {
           ..className = 'button dequeue-button'
           ..onClick = (_) async {
             await props.actions.dequeue(null);
+          }..onDoubleClick = (_) async {
+            await props.actions.peek(null);
           })('Dequeue (${props.store.currentQueue.length})'));
   }
 }

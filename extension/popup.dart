@@ -18,6 +18,9 @@ Future<Null> main() async {
     window.close();
   })..didEnqueueUrl.listen((_url) {
     window.close();
+  })..didPeekUrl.listen((url) async {
+    await chrome.tabs.create(new chrome.TabsCreateParams(url: url, active: true));
+    window.close();
   });
 
   var store = new ReadQueueStore(actions, events);

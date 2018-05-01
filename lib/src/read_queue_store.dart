@@ -11,7 +11,7 @@ class ReadQueueStore extends Store {
   List<String> _currentQueue = [];
 
   ReadQueueStore(ReadQueueActions actions, this._events) {
-    actions..dequeue.listen(_handleDequeue)..enqueue.listen(_handleEnqueue);
+    actions..dequeue.listen(_handleDequeue)..enqueue.listen(_handleEnqueue)..peek.listen(_handlePeek);
     chrome.storage.onChanged.listen((_) async {
       await _loadQueue();
       trigger();
@@ -47,6 +47,15 @@ class ReadQueueStore extends Store {
     _currentQueue.add(url);
     await _saveQueue();
     _events.dispatchDidEnqueueUrl(url);
+  }
+
+  Future<Null> _handlePeek(_) async {
+    await _loadQueue();
+    if (_currentQueue.isEmpty) {
+      return;
+    }
+    var url = _currentQueue.first;
+    _events.dispatchDidPeekUrl(url);
   }
 
   /// Load the queue from storage.

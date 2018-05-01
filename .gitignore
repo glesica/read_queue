@@ -20,4 +20,8 @@ doc/api/
 *.ipr
 *.iws
 
+# Chrome
+*.xpi
+
 .DS_Store
+
