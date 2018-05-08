@@ -13,15 +13,23 @@ import 'package:read_queue/src/read_queue_store.dart';
 Future<Null> main() async {
   var actions = new ReadQueueActions();
 
-  var events = new ReadQueueEvents()..didDequeueUrl.listen((url) async {
-    await chrome.tabs.create(new chrome.TabsCreateParams(url: url, active: true));
-    window.close();
-  })..didEnqueueUrl.listen((_url) {
-    window.close();
-  })..didPeekUrl.listen((url) async {
-    await chrome.tabs.create(new chrome.TabsCreateParams(url: url, active: true));
-    window.close();
-  });
+  var events = new ReadQueueEvents()
+    ..didPeekNext.listen((url) async {
+      await chrome.tabs
+          .create(new chrome.TabsCreateParams(url: url, active: true));
+      window.close();
+    })
+    ..didPopNext.listen((url) async {
+      await chrome.tabs
+          .create(new chrome.TabsCreateParams(url: url, active: true));
+      window.close();
+    })
+    ..didPushLater.listen((_url) {
+      window.close();
+    })
+    ..didPushSooner.listen((_url) {
+      window.close();
+    });
 
   var store = new ReadQueueStore(actions, events);
   await store.init();

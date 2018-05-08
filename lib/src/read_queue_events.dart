@@ -1,22 +1,28 @@
 import 'dart:async';
 
 class ReadQueueEvents {
-  final StreamController<String> _didDequeueUrl =
+  final StreamController<String> _didPeekNext =
       new StreamController<String>.broadcast();
-  final StreamController<String> _didEnqueueUrl =
+  final StreamController<String> _didPopNext =
       new StreamController<String>.broadcast();
-  final StreamController<String> _didPeekUrl =
+  final StreamController<String> _didPushLater =
+      new StreamController<String>.broadcast();
+  final StreamController<String> _didPushSooner =
       new StreamController<String>.broadcast();
 
-  Stream<String> get didDequeueUrl => _didDequeueUrl.stream;
+  Stream<String> get didPeekNext => _didPeekNext.stream;
 
-  Stream<String> get didEnqueueUrl => _didEnqueueUrl.stream;
+  Stream<String> get didPopNext => _didPopNext.stream;
 
-  Stream<String> get didPeekUrl => _didPeekUrl.stream;
+  Stream<String> get didPushLater => _didPushLater.stream;
 
-  void dispatchDidDequeueUrl(String url) => _didDequeueUrl.add(url);
+  Stream<String> get didPushSooner => _didPushSooner.stream;
 
-  void dispatchDidEnqueueUrl(String url) => _didEnqueueUrl.add(url);
+  void dispatchDidPeekNext(String url) => _didPeekNext.add(url);
 
-  void dispatchDidPeekUrl(String url) => _didPeekUrl.add(url);
+  void dispatchDidPopNext(String url) => _didPopNext.add(url);
+
+  void dispatchDidPushLater(String url) => _didPushLater.add(url);
+
+  void dispatchDidPushSooner(String url) => _didPushSooner.add(url);
 }

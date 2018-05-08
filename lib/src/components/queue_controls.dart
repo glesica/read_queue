@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:over_react/over_react.dart';
+import 'package:react/react.dart' show SyntheticMouseEvent;
 
 import 'package:read_queue/src/read_queue_actions.dart';
 import 'package:read_queue/src/read_queue_store.dart';
@@ -16,16 +18,35 @@ class QueueControlsComponent extends FluxUiComponent<QueueControlsProps> {
   dynamic render() {
     return (Dom.div()..id = 'queue-controls')(
         (Dom.div()
-          ..className = 'button enqueue-button'
+          ..className = 'button sooner-button'
           ..onClick = (_) async {
-            await props.actions.enqueue(null);
-          })('Enqueue'),
+            await props.actions.pushSooner(null);
+          })('Sooner'),
         (Dom.div()
-          ..className = 'button dequeue-button'
+          ..className = 'button later-button'
           ..onClick = (_) async {
-            await props.actions.dequeue(null);
-          }..onDoubleClick = (_) async {
-            await props.actions.peek(null);
-          })('Dequeue (${props.store.currentQueue.length})'));
+            await props.actions.pushLater(null);
+          })('Later'),
+        (Dom.div()
+          ..className = 'button now-button'
+          ..onClick = _handleNowButtonClick
+          ..onContextMenu = _handleNowButtonContextClick)(
+            'Now (${props.store.currentQueue.length})'));
+  }
+
+  Future<Null> _handleNowButtonClick(SyntheticMouseEvent e) async {
+    if (props.store.currentQueue.isEmpty) {
+      return;
+    }
+    await props.actions.popNext(null);
+  }
+
+  Future<Null> _handleNowButtonContextClick(SyntheticMouseEvent e) async {
+    if (props.store.currentQueue.isEmpty) {
+      return;
+    }
+    e.stopPropagation();
+    e.preventDefault();
+    await props.actions.peekNext(null);
   }
 }

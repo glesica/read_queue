@@ -22,6 +22,7 @@ doc/api/
 
 # Chrome
 *.xpi
+extension.zip
 
 .DS_Store
 

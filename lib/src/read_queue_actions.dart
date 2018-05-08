@@ -1,7 +1,8 @@
 import 'package:w_flux/w_flux.dart';
 
 class ReadQueueActions {
-  final Action<Null> dequeue = new Action<Null>();
-  final Action<Null> enqueue = new Action<Null>();
-  final Action<Null> peek = new Action<Null>();
+  final Action<Null> peekNext = new Action<Null>();
+  final Action<Null> popNext = new Action<Null>();
+  final Action<Null> pushLater = new Action<Null>();
+  final Action<Null> pushSooner = new Action<Null>();
 }
