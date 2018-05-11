@@ -7,8 +7,6 @@ body {
   font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
   font-size: 1.0rem;
   margin: 0;
-  height: 225px;
-  width: 200px;
   padding: 0;
 }
 
@@ -18,9 +16,6 @@ body {
 }
 
 #queue-controls {
-  height: 225px;
-  width: 200px;
-
   .button {
     align-items: center;
     color: whitesmoke;
@@ -29,7 +24,6 @@ body {
     font-weight: bold;
     height: 75px;
     justify-content: center;
-    width: 200px;
   }
 
   .sooner-button {
