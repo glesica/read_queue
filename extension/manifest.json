@@ -5,6 +5,13 @@
   "description": "Never lose track of something you wanted to read!",
   "author": "George Lesica",
 
+  "applications": {
+    "gecko": {
+      "id": "soonerorlater@lesica.com",
+      "strict_min_version": "42.0"
+    }
+  },
+
   "browser_action": {
     "default_title": "Sooner or Later",
     "default_icon": "icons/icon19.png",

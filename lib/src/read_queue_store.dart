@@ -30,8 +30,8 @@ class ReadQueueStore extends Store {
 
   /// Get the URL of the currently active / selected tab.
   Future<String> _getCurrentUrl() async {
-    var tab = await chrome.tabs.getSelected();
-    return tab.url;
+    final activeTabs = await chrome.tabs.query(new chrome.TabsQueryParams()..active = true);
+    return activeTabs.first.url;
   }
 
   Future<Null> _handlePeekNext(_) async {
