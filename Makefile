@@ -1,5 +1,5 @@
 
-.PHONY build
+.PHONY: build
 build:
 	pub get
 	pub run dart_dev analyze
@@ -8,20 +8,20 @@ build:
 	pub build extension
 	cd build/extension && zip -r ../../extension.zip *
 
-.PHONY clean
+.PHONY: clean
 clean:
 	rm extension/manifest.json
 
-.PHONY manifest-chrome
+.PHONY: manifest-chrome
 manifest-chrome:
 	jq 'del(.applications)' extension/manifest-full.json > extension/manifest.json
 
-.PHONY manifest-firefox
+.PHONY: manifest-firefox
 manifest-firefox:
 	cp extension/manifest-full.json extension/manifest.json
 
-.PHONY release-chrome
+.PHONY: release-chrome
 release-chrome: manifest-chrome build clean
 
-.PHONY release-firefox
+.PHONY: release-firefox
 release-firefox: manifest-firefox build clean
