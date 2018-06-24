@@ -24,5 +24,8 @@ doc/api/
 *.xpi
 extension.zip
 
+# Because Google and Mozilla can't play nice
+extension/manifest.json
+
 .DS_Store
 
