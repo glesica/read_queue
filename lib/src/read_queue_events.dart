@@ -9,6 +9,8 @@ class ReadQueueEvents {
       new StreamController<String>.broadcast();
   final StreamController<String> _didPushSooner =
       new StreamController<String>.broadcast();
+  final StreamController<String> _didTriggerSnooze =
+      new StreamController<String>.broadcast();
 
   Stream<String> get didPeekNext => _didPeekNext.stream;
 
@@ -18,6 +20,8 @@ class ReadQueueEvents {
 
   Stream<String> get didPushSooner => _didPushSooner.stream;
 
+  Stream<String> get didTriggerSnooze => _didTriggerSnooze.stream;
+
   void dispatchDidPeekNext(String url) => _didPeekNext.add(url);
 
   void dispatchDidPopNext(String url) => _didPopNext.add(url);
@@ -25,4 +29,6 @@ class ReadQueueEvents {
   void dispatchDidPushLater(String url) => _didPushLater.add(url);
 
   void dispatchDidPushSooner(String url) => _didPushSooner.add(url);
+
+  void dispatchDidTriggerSnooze(String url) => _didTriggerSnooze.add(url);
 }

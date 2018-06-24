@@ -5,4 +5,5 @@ class ReadQueueActions {
   final Action<Null> popNext = new Action<Null>();
   final Action<Null> pushLater = new Action<Null>();
   final Action<Null> pushSooner = new Action<Null>();
+  final Action<Null> snooze = new Action<Null>();
 }

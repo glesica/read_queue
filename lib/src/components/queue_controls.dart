@@ -17,21 +17,25 @@ class QueueControlsComponent extends FluxUiComponent<QueueControlsProps> {
   @override
   dynamic render() {
     return (Dom.div()..id = 'queue-controls')(
-        (Dom.div()
-          ..className = 'button sooner-button'
-          ..onClick = (_) async {
-            await props.actions.pushSooner(null);
-          })('Sooner'),
-        (Dom.div()
-          ..className = 'button later-button'
-          ..onClick = (_) async {
-            await props.actions.pushLater(null);
-          })('Later'),
-        (Dom.div()
-          ..className = 'button now-button'
-          ..onClick = _handleNowButtonClick
-          ..onContextMenu = _handleNowButtonContextClick)(
-            'Now (${props.store.currentQueue.length})'));
+      (Dom.div()
+        ..className = 'button sooner-button'
+        ..onClick = (_) async {
+          await props.actions.pushSooner(null);
+        })('Sooner'),
+      (Dom.div()
+        ..className = 'button later-button'
+        ..onClick = (_) async {
+          await props.actions.pushLater(null);
+        })('Later'),
+      (Dom.div()
+        ..className = 'button now-button'
+        ..onClick = _handleNowButtonClick
+        ..onContextMenu = _handleNowButtonContextClick)(
+          'Now (${props.store.currentQueue.length})'),
+      (Dom.div()
+        ..className = 'button snooze-button'
+        ..onClick = _handleSnoozeButtonClick)('Snooze for 24 hours'),
+    );
   }
 
   Future<Null> _handleNowButtonClick(SyntheticMouseEvent e) async {
@@ -48,5 +52,9 @@ class QueueControlsComponent extends FluxUiComponent<QueueControlsProps> {
     e.stopPropagation();
     e.preventDefault();
     await props.actions.peekNext(null);
+  }
+
+  Future<Null> _handleSnoozeButtonClick(SyntheticMouseEvent e) async {
+    // here we go
   }
 }
