@@ -78,8 +78,7 @@ class ReadQueueStore extends Store {
 
   Future<Null> _handleSnooze(_) async {
     final page = new SnoozedPage(
-        epochMs: new DateTime.now().millisecondsSinceEpoch +
-            new Duration(hours: 1).inMilliseconds,
+        epochMs: new DateTime.now().millisecondsSinceEpoch + hourMs,
         url: await _getCurrentUrl());
     print(
         '[debug] _handleSnooze: {"epochMs": "${page.epochMs}", "url": "${page.url}"}');
