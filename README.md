@@ -8,13 +8,13 @@ reading list.
 ## Development
 
 The extension is written in [Dart](https://www.dartlang.org/). Assuming
-a working Dart setup, `pub get` will get the dependencies and
-`pub build extension` will build the extension. Compiled output
-will end up in `build/extension/`.
+a working Dart setup, `pub get` will get the dependencies and `make manifest-X
+quick-build` will give you a working manifest (see below) and build the
+extension so you can run it unpacked. Compiled output will end up in
+`build/extension/`.
 
-There is also a Makefile for convenience.
+There are some other useful make targets:
 
-  * `make quick-build` - equivalent to `pub build extension`
   * `make release-chrome` - build a release for Chrome (`extension.zip`)
   * `make release-firefox` - build a release for Firefox (`extension.zip`)
 
@@ -23,9 +23,6 @@ correctly, depending on the browser you want to use for testing:
 
   * `make manifest-chrome`
   * `make manifest-firefox`
-
-Once you've run a manifest- target you can load the extension from the
-`build/extension` directory after you run `make quick-build`.
 
 ## Credits
 
