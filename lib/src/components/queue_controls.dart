@@ -34,7 +34,7 @@ class QueueControlsComponent extends FluxUiComponent<QueueControlsProps> {
           'Now (${props.store.currentQueue.length})'),
       (Dom.div()
         ..className = 'button snooze-button'
-        ..onClick = _handleSnoozeButtonClick)('Snooze for 24 hours'),
+        ..onClick = _handleSnoozeButtonClick)('Snooze for 1 hour'),
     );
   }
 
