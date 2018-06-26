@@ -6,4 +6,5 @@ class ReadQueueActions {
   final Action<Null> pushLater = new Action<Null>();
   final Action<Null> pushSooner = new Action<Null>();
   final Action<Null> snooze = new Action<Null>();
+  final Action<Null> snoozeAlarm = new Action<Null>();
 }

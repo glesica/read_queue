@@ -12,8 +12,20 @@ a working Dart setup, `pub get` will get the dependencies and
 `pub build extension` will build the extension. Compiled output
 will end up in `build/extension/`.
 
-To prepare a new release for submission to the Chrome or Mozilla
-extension repositories, use the `prep-release.sh` script.
+There is also a Makefile for convenience.
+
+  * `make quick-build` - equivalent to `pub build extension`
+  * `make release-chrome` - build a release for Chrome (`extension.zip`)
+  * `make release-firefox` - build a release for Firefox (`extension.zip`)
+
+For development, the following targets configure the manifest file
+correctly, depending on the browser you want to use for testing:
+
+  * `make manifest-chrome`
+  * `make manifest-firefox`
+
+Once you've run a manifest- target you can load the extension from the
+`build/extension` directory after you run `make quick-build`.
 
 ## Credits
 

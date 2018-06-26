@@ -8,6 +8,7 @@ import 'package:pubspec/pubspec.dart';
 class ManifestTransformer extends Transformer {
   ManifestTransformer.asPlugin();
 
+  @override
   Future apply(Transform transform) async {
     var stringContent = await transform.primaryInput.readAsString();
     var jsonContent = JSON.decode(stringContent);

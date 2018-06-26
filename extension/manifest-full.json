@@ -18,6 +18,13 @@
     "default_popup": "popup.html"
   },
 
+  "background": {
+    "scripts": [
+      "background.dart.js"
+    ],
+    "persistent": false
+  },
+
   "icons": {
       "16": "icons/icon16.png",
       "19": "icons/icon19.png",

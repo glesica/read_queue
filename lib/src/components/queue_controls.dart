@@ -28,9 +28,9 @@ class QueueControlsComponent extends FluxUiComponent<QueueControlsProps> {
           await props.actions.pushLater(null);
         })('Later'),
       (Dom.div()
-        ..className = 'button now-button'
-        ..onClick = _handleNowButtonClick
-        ..onContextMenu = _handleNowButtonContextClick)(
+            ..className = 'button now-button'
+            ..onClick = _handleNowButtonClick
+            ..onContextMenu = _handleNowButtonContextClick)(
           'Now (${props.store.currentQueue.length})'),
       (Dom.div()
         ..className = 'button snooze-button'
@@ -55,6 +55,6 @@ class QueueControlsComponent extends FluxUiComponent<QueueControlsProps> {
   }
 
   Future<Null> _handleSnoozeButtonClick(SyntheticMouseEvent e) async {
-    // here we go
+    await props.actions.snooze();
   }
 }

@@ -20,6 +20,10 @@ manifest-chrome:
 manifest-firefox:
 	cp extension/manifest-full.json extension/manifest.json
 
+.PHONY: quick-build
+quick-build:
+	pub build extension
+
 .PHONY: release-chrome
 release-chrome: manifest-chrome build clean
 
