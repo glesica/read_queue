@@ -29,6 +29,14 @@ Future<Null> main() async {
     })
     ..didPushSooner.listen((_url) {
       window.close();
+    })
+    ..didTriggerSnooze.listen((_url) async {
+      print('[debug] didTriggerSnooze listener');
+      final activeTabs =
+          await chrome.tabs.query(new chrome.TabsQueryParams()..active = true);
+      final tabId = activeTabs.first.id;
+      await chrome.tabs.remove(tabId);
+      window.close();
     });
 
   var store = new ReadQueueStore(actions, events);

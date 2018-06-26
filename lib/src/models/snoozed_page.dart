@@ -1,21 +1,24 @@
 class SnoozedPage {
-  final DateTime alarmTime;
+  final int epochMs;
 
   final String url;
 
-  SnoozedPage({this.alarmTime, this.url});
+  SnoozedPage({this.epochMs, this.url});
 
   factory SnoozedPage.fromMap(Map<String, String> map) {
-    final epochTime = int.parse(map['alarmTime']);
+    final epochMs = int.parse(map['epochMs']);
     final url = map['url'];
     return new SnoozedPage(
-      alarmTime: new DateTime.fromMillisecondsSinceEpoch(epochTime),
+      epochMs: epochMs,
       url: url,
     );
   }
 
   Map<String, String> toMap() => {
-        'alarmTime': alarmTime.millisecondsSinceEpoch.toString(),
+        'epochMs': epochMs.toString(),
         'url': url,
       };
+
+  @override
+  String toString() => '{"epochMs": "$epochMs", "url": "$url"}';
 }

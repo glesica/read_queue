@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:chrome/chrome_ext.dart' as chrome;
+import 'package:read_queue/src/constants.dart';
 import 'package:read_queue/src/models/snoozed_page.dart';
 import 'package:w_flux/w_flux.dart';
 
@@ -76,41 +77,49 @@ class ReadQueueStore extends Store {
   }
 
   Future<Null> _handleSnooze(_) async {
-    final alarmTime = new DateTime.now().add(new Duration(days: 1));
-    final url = await _getCurrentUrl();
-    final page = new SnoozedPage(alarmTime: alarmTime, url: url);
+    final page = new SnoozedPage(
+        epochMs: new DateTime.now().millisecondsSinceEpoch + intervalMs,
+        url: await _getCurrentUrl());
+    print(
+        '[debug] _handleSnooze: {"epochMs": "${page.epochMs}", "url": "${page.url}"}');
     await _loadSnoozeQueue();
     _currentSnoozeQueue.add(page);
     await _saveSnoozeQueue();
-    _events.dispatchDidTriggerSnooze(url);
+    _events.dispatchDidTriggerSnooze(page.url);
   }
 
   Future<Null> _handleSnoozeAlarm(_) async {
+    print('[debug] _handleSnoozeAlarm');
     await _loadSnoozeQueue();
     if (_currentSnoozeQueue.isEmpty) {
+      print('[debug] _handleSnoozeAlarm -> _currentSnoozeQueue.isEmpty');
       return;
     }
     final now = new DateTime.now();
-    while (_currentSnoozeQueue.isNotEmpty &&
-        _currentSnoozeQueue.first.alarmTime.isBefore(now)) {
-      final page = _currentSnoozeQueue.removeAt(0);
-      _events.dispatchDidPopSnoozed(page.url);
-    }
+    print('[debug] current epoch -> ${now.millisecondsSinceEpoch}');
+    _currentSnoozeQueue
+        .where((p) => p.epochMs <= now.millisecondsSinceEpoch)
+        .toList()
+        .forEach((p) {
+      _currentSnoozeQueue.remove(p);
+      _events.dispatchDidPopSnoozed(p.url);
+    });
     await _saveSnoozeQueue();
   }
 
   /// Load the queue from storage.
   Future<Null> _loadQueue() async {
-    var json = await chrome.storage.sync.get({'queue': []});
-    _currentQueue = json['queue'].toList();
+    var dataMap = await chrome.storage.sync.get({'queue': []});
+    _currentQueue = dataMap['queue'].toList();
   }
 
   Future<Null> _loadSnoozeQueue() async {
-    final json = await chrome.storage.sync.get({'snooze-queue': []});
-    _currentSnoozeQueue = json['snooze-queue']
+    final dataMap = await chrome.storage.sync.get({'snooze-queue': []});
+    _currentSnoozeQueue = dataMap['snooze-queue']
         .toList()
         .map((m) => new SnoozedPage.fromMap(m))
         .toList();
+    print('[debug] _loadSnoozeQueue -> $_currentSnoozeQueue');
   }
 
   /// Persist the current version of the store queue to storage.
@@ -124,5 +133,6 @@ class ReadQueueStore extends Store {
     await chrome.storage.sync.set({
       'snooze-queue': _currentSnoozeQueue.map((p) => p.toMap()).toList(),
     });
+    print('[debug] _saveSnoozeQueue -> $_currentSnoozeQueue');
   }
 }

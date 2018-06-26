@@ -14,11 +14,11 @@ clean:
 
 .PHONY: manifest-chrome
 manifest-chrome:
-	jq 'del(.applications)' extension/manifest-full.json > extension/manifest.json
+	jq 'del(.applications)|.version="1.0.0"' extension/manifest-full.json > extension/manifest.json
 
 .PHONY: manifest-firefox
 manifest-firefox:
-	cp extension/manifest-full.json extension/manifest.json
+	jq '.version="1.0.0"' extension/manifest-full.json > extension/manifest.json
 
 .PHONY: quick-build
 quick-build:

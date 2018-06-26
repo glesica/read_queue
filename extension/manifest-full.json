@@ -37,6 +37,7 @@
 
   "permissions": [
     "activeTab",
+    "alarms",
     "tabs",
     "storage"
   ]
